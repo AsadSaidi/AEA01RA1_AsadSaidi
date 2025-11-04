@@ -1,0 +1,254 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #191919;
+  margin: 0;
+  padding: 0;
+}
+
+.app {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 48px 24px;
+  min-height: 100vh;
+  background: #191919;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  color: #e3e3e3;
+}
+
+h1 {
+  font-size: 40px;
+  font-weight: 700;
+  margin: 0 0 4px 0;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #9b9b9b;
+  margin: 0;
+  font-weight: 400;
+  padding-bottom: 30px;
+}
+
+.nova-tasca {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+  align-items: stretch;
+}
+
+.nova-tasca input {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid #3a3a3a;
+  border-radius: 6px;
+  font-size: 14px;
+  background: #2a2a2a;
+  color: #e3e3e3;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.nova-tasca input:focus {
+  outline: none;
+  border-color: #2383e2;
+  box-shadow: 0 0 0 2px rgba(35, 131, 226, 0.2);
+}
+
+.nova-tasca input::placeholder {
+  color: #6b6b6b;
+}
+
+.btn-primary {
+  padding: 10px 20px;
+  background: #2383e2;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.btn-primary:hover {
+  background: #1a6ec7;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(35, 131, 226, 0.25);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.filtres {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #3a3a3a;
+  padding-bottom: 1px;
+}
+
+.filtres button {
+  padding: 8px 12px;
+  background: transparent;
+  color: #9b9b9b;
+  border: none;
+  border-bottom: 2px solid transparent;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  position: relative;
+  bottom: -1px;
+}
+
+.filtres button:hover {
+  color: #e3e3e3;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.filtres button.active {
+  color: #e3e3e3;
+  border-bottom-color: #e3e3e3;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 14px;
+  margin-bottom: 4px;
+  background: #2a2a2a;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+li:hover {
+  background: #323232;
+  border-color: #3a3a3a;
+}
+
+.tasca-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  cursor: pointer;
+}
+
+.tasca-label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: #2383e2;
+}
+
+.tasca-label span {
+  font-size: 15px;
+  color: #e3e3e3;
+  transition: all 0.2s ease;
+}
+
+li.completada {
+  opacity: 0.5;
+}
+
+li.completada .tasca-label span {
+  text-decoration: line-through;
+  color: #6b6b6b;
+}
+
+.tasca-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.data {
+  font-size: 12px;
+  color: #6b6b6b;
+  font-weight: 400;
+}
+
+.btn-delete {
+  padding: 6px 10px;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.2s ease;
+  opacity: 0.5;
+}
+
+.btn-delete:hover {
+  background: #3a2020;
+  opacity: 1;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 48px 24px;
+  color: #6b6b6b;
+}
+
+.empty-state p {
+  font-size: 16px;
+  margin: 0 0 8px 0;
+}
+
+.empty-state small {
+  font-size: 13px;
+  color: #5a5a5a;
+}
+
+.resum {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid #3a3a3a;
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+}
+
+.resum-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.resum-label {
+  font-size: 12px;
+  color: #6b6b6b;
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.resum-value {
+  font-size: 28px;
+  font-weight: 600;
+  color: #e3e3e3;
+}
+
+.resum-value.pendents {
+  color: #2383e2;
+}
