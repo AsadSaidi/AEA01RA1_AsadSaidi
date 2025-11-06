@@ -5,10 +5,8 @@
       <p class="subtitle">Organitza el teu dia a dia</p>
     </div>
 
-    <!-- Formulari per afegir nova tasca -->
     <TaskForm @afegir-tasca="afegirTasca" />
 
-    <!-- Filtres -->
     <div class="filtres">
       <button 
         @click="filtre = 'totes'" 
@@ -24,14 +22,12 @@
       >Completades</button>
     </div>
 
-    <!-- Llista de tasques -->
     <TaskList
       :tasques="tasquesFiltrades"
       @eliminar-tasca="eliminarTasca"
       @toggle-completada="toggleCompletada"
     />
 
-    <!-- Resum -->
     <div class="resum">
       <div class="resum-item">
         <span class="resum-label">Total</span>
@@ -62,7 +58,6 @@ function afegirTasca(titol) {
 }
 
 function eliminarTasca(index) {
-  // Troba la tasca a la llista filtrada i elimina-la de la llista original
   const tascaFiltrada = tasquesFiltrades.value[index]
   const idx = tasques.value.indexOf(tascaFiltrada)
   if (idx !== -1) tasques.value.splice(idx, 1)
