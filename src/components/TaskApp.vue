@@ -1,67 +1,35 @@
 <template>
   <div class="app">
     <div class="header">
-      <h1>📝 Gestor de Tasques</h1>
+      <h1>Gestor de Tasques</h1>
       <p class="subtitle">Organitza el teu dia a dia</p>
     </div>
 
-    <!-- Afegir nova tasca -->
-    <div class="nova-tasca">
-      <input
-        v-model="novaTasca"
-        placeholder="Escriu una nova tasca..."
-        @keyup.enter="afegirTasca"
-      />
-      <button @click="afegirTasca" class="btn-primary">Afegir</button>
-    </div>
+    <!-- Formulari per afegir nova tasca -->
+    <TaskForm @afegir-tasca="afegirTasca" />
 
     <!-- Filtres -->
     <div class="filtres">
       <button 
         @click="filtre = 'totes'" 
         :class="{ active: filtre === 'totes' }"
-      >
-        Totes
-      </button>
+      >Totes</button>
       <button 
         @click="filtre = 'pendents'"
         :class="{ active: filtre === 'pendents' }"
-      >
-        Pendents
-      </button>
+      >Pendents</button>
       <button 
         @click="filtre = 'completades'"
         :class="{ active: filtre === 'completades' }"
-      >
-        Completades
-      </button>
+      >Completades</button>
     </div>
 
     <!-- Llista de tasques -->
-    <ul v-if="tasquesFiltrades.length > 0">
-      <li
-        v-for="(tasca, index) in tasquesFiltrades"
-        :key="index"
-        :class="{ completada: tasca.completada }"
-      >
-        <label class="tasca-label">
-          <input
-            type="checkbox"
-            v-model="tasca.completada"
-          />
-          <span>{{ tasca.titol }}</span>
-        </label>
-        <div class="tasca-actions">
-          <small class="data">{{ tasca.data }}</small>
-          <button @click="eliminarTasca(index)" class="btn-delete">🗑️</button>
-        </div>
-      </li>
-    </ul>
-
-    <div v-else class="empty-state">
-      <p>✨ No hi ha tasques per mostrar</p>
-      <small>Comença afegint la teva primera tasca</small>
-    </div>
+    <TaskList
+      :tasques="tasquesFiltrades"
+      @eliminar-tasca="eliminarTasca"
+      @toggle-completada="toggleCompletada"
+    />
 
     <!-- Resum -->
     <div class="resum">
@@ -79,29 +47,32 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import TaskForm from './TaskForm.vue'
+import TaskList from './TaskList.vue'
 
-// Dades reactives
 const tasques = ref([])
-const novaTasca = ref('')
 const filtre = ref('totes')
 
-// Funcions
-function afegirTasca() {
-  if (novaTasca.value.trim() !== '') {
-    tasques.value.push({
-      titol: novaTasca.value,
-      completada: false,
-      data: new Date().toLocaleDateString()
-    })
-    novaTasca.value = ''
-  }
+function afegirTasca(titol) {
+  tasques.value.push({
+    titol,
+    completada: false,
+    data: new Date().toLocaleDateString()
+  })
 }
 
 function eliminarTasca(index) {
-  tasques.value.splice(index, 1)
+  // Troba la tasca a la llista filtrada i elimina-la de la llista original
+  const tascaFiltrada = tasquesFiltrades.value[index]
+  const idx = tasques.value.indexOf(tascaFiltrada)
+  if (idx !== -1) tasques.value.splice(idx, 1)
 }
 
-// Computed
+function toggleCompletada(index) {
+  const tascaFiltrada = tasquesFiltrades.value[index]
+  tascaFiltrada.completada = !tascaFiltrada.completada
+}
+
 const tasquesFiltrades = computed(() => {
   if (filtre.value === 'pendents')
     return tasques.value.filter(t => !t.completada)
@@ -111,8 +82,7 @@ const tasquesFiltrades = computed(() => {
 })
 
 const totalTasques = computed(() => tasques.value.length)
-const tasquesPendents = computed(
-  () => tasques.value.filter(t => !t.completada).length
-)
+const tasquesPendents = computed(() => tasques.value.filter(t => !t.completada).length)
 </script>
+
 <style scoped src="../styles.css"></style>
